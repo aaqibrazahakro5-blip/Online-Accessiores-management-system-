@@ -1,0 +1,220 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechZone | Computer & Mobile Accessories</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<header class="navbar">
+    <a href="#home" class="logo">TECH<span>ZONE</span></a>
+
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#products">Products</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="nav-actions">
+        <button onclick="showOrders()" class="order-btn">My Orders</button>
+        <button onclick="openCart()" class="cart-btn">
+            🛒 Cart <span id="cartCount">0</span>
+        </button>
+    </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="home">
+    <div class="hero-content">
+        <span class="hero-tag">WELCOME TO TECHZONE</span>
+        <h1>Upgrade Your<br>Digital Lifestyle</h1>
+        <p>
+            Discover premium computer and mobile accessories
+            at amazing prices.
+        </p>
+        <a href="#products" class="shop-btn">Shop Now →</a>
+    </div>
+</section>
+
+<!-- BENEFITS -->
+<section class="benefits">
+    <div>🚚 <strong>Fast Delivery</strong><small>Across Pakistan</small></div>
+    <div>🔒 <strong>Secure Ordering</strong><small>Simple checkout</small></div>
+    <div>⭐ <strong>Quality Products</strong><small>Trusted accessories</small></div>
+    <div>💬 <strong>Customer Support</strong><small>We're here to help</small></div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="categories">
+    <div class="section-title">
+        <span>SHOP BY CATEGORY</span>
+        <h2>Explore Categories</h2>
+    </div>
+
+    <div class="category-grid">
+        <div class="category-card" onclick="filterProducts('Computer')">
+            <div class="category-icon">💻</div>
+            <h3>Computer Accessories</h3>
+            <p>Keyboards, Mouse, Headphones & More</p>
+        </div>
+
+        <div class="category-card" onclick="filterProducts('Mobile')">
+            <div class="category-icon">📱</div>
+            <h3>Mobile Accessories</h3>
+            <p>Chargers, Covers, Earbuds & More</p>
+        </div>
+    </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="products-section" id="products">
+    <div class="section-title">
+        <span>OUR COLLECTION</span>
+        <h2>Featured Products</h2>
+        <p>Find the right accessories for your devices.</p>
+    </div>
+
+    <div class="product-controls">
+        <input
+            type="search"
+            id="searchInput"
+            placeholder="🔍 Search products..."
+        >
+
+        <select id="categoryFilter" onchange="applyFilters()">
+            <option value="All">All Categories</option>
+            <option value="Computer">Computer Accessories</option>
+            <option value="Mobile">Mobile Accessories</option>
+        </select>
+
+        <select id="sortFilter" onchange="applyFilters()">
+            <option value="default">Sort By</option>
+            <option value="low">Price: Low to High</option>
+            <option value="high">Price: High to Low</option>
+        </select>
+    </div>
+
+    <div class="product-grid" id="productGrid"></div>
+</section>
+
+<!-- ABOUT -->
+<section class="about-section" id="about">
+    <div class="about-content">
+        <span>ABOUT TECHZONE</span>
+        <h2>Your One-Stop Technology Store</h2>
+        <p>
+            TechZone offers a wide collection of computer and
+            mobile accessories. Our goal is to make online
+            shopping simple, convenient and enjoyable.
+        </p>
+        <a href="#products" class="shop-btn">Explore Products</a>
+    </div>
+    <div class="about-image"></div>
+</section>
+
+<!-- CART MODAL -->
+<div class="overlay" id="cartModal">
+    <div class="modal cart-modal">
+        <button class="close-btn" onclick="closeCart()">×</button>
+        <h2>🛒 Shopping Cart</h2>
+
+        <div id="cartItems"></div>
+
+        <div class="cart-total">
+            <h3>Total: <span id="cartTotal">Rs. 0</span></h3>
+        </div>
+
+        <button class="primary-btn" onclick="goToCheckout()">
+            Proceed to Checkout
+        </button>
+    </div>
+</div>
+
+<!-- CHECKOUT MODAL -->
+<div class="overlay" id="checkoutModal">
+    <div class="modal">
+        <button class="close-btn" onclick="closeCheckout()">×</button>
+        <h2>Complete Your Order</h2>
+
+        <div class="checkout-summary" id="checkoutSummary"></div>
+
+        <form id="checkoutForm">
+
+            <label>Full Name</label>
+            <input type="text" id="customerName"
+                   placeholder="Enter your full name" required>
+
+            <label>Email Address</label>
+            <input type="email" id="customerEmail"
+                   placeholder="Enter your email" required>
+
+            <label>Phone Number</label>
+            <input type="tel" id="customerPhone"
+                   placeholder="03XXXXXXXXX"
+                   pattern="[0-9+\-\s]{10,16}" required>
+
+            <label>Delivery Address</label>
+            <textarea id="customerAddress"
+                      placeholder="Enter complete delivery address"
+                      required></textarea>
+
+            <label>City</label>
+            <select id="customerCity" required>
+                <option value="">Select City</option>
+                <option>Islamabad</option>
+                <option>Rawalpindi</option>
+                <option>Karachi</option>
+                <option>Lahore</option>
+                <option>Peshawar</option>
+                <option>Quetta</option>
+                <option>Hyderabad</option>
+                <option>Sukkur</option>
+                <option>Other</option>
+            </select>
+
+            <label>Payment Method</label>
+            <select id="paymentMethod" required>
+                <option value="Cash on Delivery">Cash on Delivery</option>
+                <option value="Bank Transfer">Bank Transfer</option>
+            </select>
+
+            <button type="submit" class="primary-btn">
+                Place Order
+            </button>
+        </form>
+    </div>
+</div>
+
+<!-- ORDER HISTORY -->
+<div class="overlay" id="ordersModal">
+    <div class="modal orders-modal">
+        <button class="close-btn" onclick="closeOrders()">×</button>
+        <h2>📦 My Orders</h2>
+        <div id="ordersList"></div>
+    </div>
+</div>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+    <h2>Contact Us</h2>
+    <p>Have any questions? Contact TechZone.</p>
+    <p>📧 Email: support@techzone.com</p>
+    <p>📞 Phone: +92 300 1234567</p>
+    <p>📍 Pakistan</p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <h2>TECH<span>ZONE</span></h2>
+    <p>Your Technology, Our Priority.</p>
+    <p>© 2026 TechZone. All Rights Reserved.</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
